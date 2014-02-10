@@ -6,14 +6,21 @@ ZeroPush is a simple service for sending Apple Push Notifications. This library 
 Example Usage
 ===
 
-``php
+```php
 <?php
 
 require('zero_push.php');
 
 $client = new ZeroPush("your-auth-token");
 $tokens = array("64-digit-device-token");
-$response = $client->notify(array("device_tokens" => $tokens, "title" => "Hello, World", "body" => "From ZeroPush"));
+$response = $client->notify(array("device_tokens" => $tokens,
+                                  "title" => "Hello, World",
+                                  "body" => "From ZeroPush"));
 
-
+?>
 ```
+
+Documentation
+===
+
+Full API documentation can be found at: https://zeropush.com/documentation/api_reference
