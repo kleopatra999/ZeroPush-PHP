@@ -21,12 +21,12 @@ class ZeroPush
   const USER_AGENT = "ZeroPush-PHP ({self::VERSION})";
   const URL = 'https://api.zeropush.com';
 
-	protected $settings = array();
+  protected $settings = array();
 
-	public function __construct($auth_token) {
+  public function __construct($auth_token) {
     $settings = array('auth_token' => $auth_token);
-		$this->settings = array_merge($this->settings, $settings);
-	}
+    $this->settings = array_merge($this->settings, $settings);
+  }
 
   public function verifyCredentials() {
     return $this->request('get', '/verify_credentials');
@@ -75,7 +75,7 @@ class ZeroPush
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
     $params = array_merge($params, $this->settings);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query_with_array($params));
 
     $response = curl_exec($curl);
 
@@ -90,5 +90,32 @@ class ZeroPush
 
     return $json;
   }
+}
+
+function http_build_query_with_array($a,$b='',$c=0)
+{
+  if (!is_array($a)) return false;
+  foreach ((array)$a as $k=>$v)
+  {
+    if ($c)
+    {
+      if( is_numeric($k) )
+        $k=$b."[]";
+      else
+        $k=$b."[$k]";
+    }
+    else
+    {   if (is_int($k))
+    $k=$b.$k;
+    }
+
+    if (is_array($v)||is_object($v))
+    {
+      $r[]=http_build_query_with_array($v,$k,1);
+      continue;
+    }
+    $r[]=urlencode($k)."=".urlencode($v);
+  }
+  return implode("&",$r);
 }
 ?>
