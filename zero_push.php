@@ -11,13 +11,13 @@
  *   Adam V. Duke  <adam@zeropush.com>
  *
  * Created On: 2014-01-11
- * Updated On: 2014-01-11
+ * Updated On: 2014-06-30
  *
  */
 
 class ZeroPush
 {
-  const VERSION = '0.0.1';
+  const VERSION = '1.0.0';
   const USER_AGENT = "ZeroPush-PHP ({self::VERSION})";
   const URL = 'https://api.zeropush.com';
 
